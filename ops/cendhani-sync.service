@@ -1,0 +1,10 @@
+[Unit]
+Description=Sync cendhani.com from GitHub to production web root
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/git -C /opt/cendhani.com fetch --quiet origin main
+ExecStart=/usr/bin/git -C /opt/cendhani.com reset --hard origin/main
+ExecStart=/usr/bin/rsync -a --delete --exclude=.git/ --exclude=ops/ --exclude=README.md --exclude=Caddyfile.snippet /opt/cendhani.com/ /srv/cendhani.com/
