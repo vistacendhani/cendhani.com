@@ -1,0 +1,14 @@
+[Unit]
+Description=Deploy cendhani.com from GitHub to production web root
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/git -C /opt/cendhani.com fetch --quiet origin main
+ExecStart=/usr/bin/git -C /opt/cendhani.com reset --hard origin/main
+ExecStart=/usr/bin/test -s /opt/cendhani.com/index.html
+ExecStart=/usr/bin/test -s /opt/cendhani.com/english/index.html
+ExecStart=/usr/bin/test -s /opt/cendhani.com/indonesian/index.html
+ExecStart=/usr/bin/rsync -a --delete --exclude=.git/ --exclude=ops/ --exclude=README.md --exclude=Caddyfile.snippet --exclude=assets/ /opt/cendhani.com/ /srv/cendhani.com/
+ExecStart=/usr/bin/test -s /srv/cendhani.com/assets/vista-headshot.webp
