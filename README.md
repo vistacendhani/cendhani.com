@@ -5,6 +5,7 @@ Canonical source for the public Vista Cendhani website.
 Routes:
 - `/` Home
 - `/english/` English coaching
+- `/corporate/` Corporate Business English
 - `/indonesian/` Indonesian lessons
 
 Production:
@@ -16,7 +17,7 @@ Production:
 Deployment:
 - Manual, one-command deployment from GitHub to production.
 - Run: `sudo systemctl start cendhani-deploy.service`
-- The service fetches `main`, resets the VPS checkout to `origin/main`, verifies the three HTML entry points, and then rsyncs the public site files to `/srv/cendhani.com`.
+- The service fetches `main`, resets the VPS checkout to `origin/main`, verifies the four HTML entry points, and then rsyncs the public site files to `/srv/cendhani.com/`.
 - The current `assets/` directory is intentionally preserved during deploys because the headshot binary is not yet stored in this repository.
 - Caddy does not need to be reloaded for normal static-site content changes.
 
